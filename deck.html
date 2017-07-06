@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Deck of Cards</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+	class Card {
+		constructor(s, v) {
+			this.suit = s;
+			this.value = v;
+			this.name = v + " of " + s;
+		}
+	}
+
+	class Deck {
+		constructor() {
+
+		}
+
+		reset() {
+			deck = new Array(Suits.length * Values.length);
+			for (let i = 0; i < Suits.length; i++) {
+      		for (let j = 0; j < Values.length; j++)
+        			deck[j + i * Values.length] = new Card(Suits[i], Values[j]);
+        }
+		}
+
+		shuffle() {
+			for (let idx = 0; idx < deck.length; idx++) {
+				let randIdx = Math.floor(Math.random() * (deck.length - idx)) + idx;
+				// console.log(randIdx);
+				let temp = deck[randIdx];
+				deck[randIdx] = deck[idx];
+				deck[idx] = temp;
+			}
+		}
+
+		deal() {
+			if (deck.length > 0) {
+				// let card = deck[deck.length - 1];
+				let card = deck.shift();
+				// console.log(discard.name);
+				// console.log(card);
+				return card;
+			} else {
+				console.log("There's no cards to draw!")
+			}
+		}
+	}
+
+	class Player {
+		constructor(Name) {
+			this.name = Name;
+			this.hand = [];			
+		}
+
+		draw(card) {
+			this.hand.push(card);
+		}
+
+		discard(idx) {
+			if (idx > -1 && idx < deck.length) {
+				this.hand.splice(idx, 1);
+				// console.log("I'm splicing!")
+			} else {
+				console.log("Nothing Happened!");
+			}
+		}
+	}
+	// var self = this;
+	const Suits = ["Hearts", "Clubs", "Spades", "Diamonds"];
+	const Values = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"];
+
+	let deck = new Array(Suits.length * Values.length);
+
+	let newDeck = new Deck();
+	newDeck.reset();
+	console.log(deck);
+
+	// newDeck.shuffle();
+	console.log(deck);
+	console.log(deck);
+	console.log(deck);
+	// let card = newDeck.deal();
+	let player1 = new Player("Marcus");
+	player1.draw(newDeck.deal());
+	player1.draw(newDeck.deal());
+	player1.draw(newDeck.deal());
+	console.log(player1.hand);
+	player1.discard(0);
+	console.log(player1.hand);
+
+
+
+	// let newDeck = new Deck;
+	// console.log(newDeck);
+</script>
+</html>
